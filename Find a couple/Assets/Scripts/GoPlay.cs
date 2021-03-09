@@ -7,6 +7,7 @@ public class GoPlay : MonoBehaviour
 {
     public void Starting()
     {
+      SceneManager.UnloadSceneAsync("Menu");
       SceneManager.LoadScene("Game");
     }
 }
