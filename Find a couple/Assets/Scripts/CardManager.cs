@@ -31,7 +31,6 @@ public class CardManager : MonoBehaviour
     string[] number = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
     string[] mast = new string[] { "Club", "Diamond", "Heart", "Spades" };
     Object prefab;
-    object animation;
     //GameObject card;
 
     void Start()
@@ -48,32 +47,40 @@ public class CardManager : MonoBehaviour
                           from m in mast
                           select n + m;
 
-        cards = new GameObject[numberOfCards];
+        Canvas canvas = FindObjectOfType<Canvas>();
+        GameObject t = new GameObject();
+        t.name = "Card";
 
+        //initialize cards array
+        cards = new GameObject[numberOfCards];
+        object animation = Resources.Load("Animations/CardFlip");
         //init random pairs of cards
         for (int i = 0; i < numberOfCards - 1; i += 2) 
         {
+            //load random card
             prefab = Resources.Load("Free_Playing_Cards/PlayingCards_"+playingCars.ToArray()[Random.Range(0,playingCars.ToArray().Length)]);
 
 
-            //cards[i].AddComponent<Card>();
-            //cards[i + 1].AddComponent<Card>();
-            cards[i] = (GameObject)Instantiate(prefab, FindObjectOfType<Canvas>().transform);
-            cards[i + 1] = (GameObject)Instantiate(prefab, FindObjectOfType<Canvas>().transform);
+            //create empty pair of "Card" objects
+            cards[i] = Instantiate(t, canvas.transform);
+            cards[i + 1] = Instantiate(t, canvas.transform);
 
-            //cards[i].AddComponent<Animation>();
-            //cards[i + 1].AddComponent<Animation>();
-            //animation = Resources.Load("Animations/flip");
+            //create actual pair of cards inside empty object and add an animation
+            cards[i] = (GameObject)Instantiate(prefab, cards[i].transform);
+            cards[i + 1] = (GameObject)Instantiate(prefab, cards[i + 1].transform);
 
-            //cards[i].GetComponent<Animation>().AddClip((AnimationClip)animation, "flip");
-            //cards[i + 1].GetComponent<Animation>().AddClip((AnimationClip)animation, "flip");
-            //cards[i].GetComponent<Animation>().Play("flip");
-            //cards[i + 1].GetComponent<Animation>().Play("flip");
-
+            cards[i].AddComponent<Animation>();
+            cards[i].GetComponent<Animation>().AddClip((AnimationClip)animation, "flip");
+            cards[i].GetComponent<Animation>().Play("flip");
+            cards[i + 1].AddComponent<Animation>();
+            cards[i + 1].GetComponent<Animation>().AddClip((AnimationClip)animation, "flip");
+            cards[i + 1].GetComponent<Animation>().Play("flip");
 
             cards[i].transform.rotation = new Quaternion(0, 180, 0, 0);
             cards[i + 1].transform.rotation = new Quaternion(0, 180, 0, 0);
-            }
+        }
+
+        GameObject.Destroy(t);
 
         //shuffle cards
         for (int i = 0; i < numberOfCards; ++i)
@@ -85,7 +92,7 @@ public class CardManager : MonoBehaviour
         }
 
 
-        RectTransform screen = cards[0].GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+        RectTransform screen = canvas.GetComponent<RectTransform>();
 
         float otstupY = 35;
         float otstupX = 0;
@@ -101,8 +108,8 @@ public class CardManager : MonoBehaviour
         {
             for (int column = 0; column < numberOfColumns && row * numberOfColumns + column < numberOfCards; ++column)
             {
-                cards[row * numberOfColumns + column].transform.localScale = scale;
-                cards[row * numberOfColumns + column].transform.localPosition = new Vector3(-screen.rect.width / 2 + cardWidth / 2 + cardWidth * column,
+                cards[row * numberOfColumns + column].transform.parent.localScale = scale;
+                cards[row * numberOfColumns + column].transform.parent.localPosition = new Vector3(-screen.rect.width / 2 + cardWidth / 2 + cardWidth * column,
                     screen.rect.height / 2 - otstupY - cardHeight / 2 - cardHeight * row, 0);
             }
         }
