@@ -19,6 +19,11 @@ public class CardManager : MonoBehaviour
         return i;
     }
 
+    public float scaleMulY = 0.9f;
+    public float scaleMulX = 0.6f;
+
+
+
     public int numberOfCards;
 
     GameObject[] cards;
@@ -31,7 +36,7 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
-        numberOfCards = 46;
+        //numberOfCards = 46;
 
 
         int numberOfRows = CalculateNumberOfRows(numberOfCards);
@@ -80,26 +85,25 @@ public class CardManager : MonoBehaviour
         }
 
 
-        Rect screen = cards[0].GetComponentInParent<Canvas>().GetComponent<RectTransform>().rect;
+        RectTransform screen = cards[0].GetComponentInParent<Canvas>().GetComponent<RectTransform>();
 
         float otstupY = 35;
         float otstupX = 0;
 
-        float cardHeight = (screen.height - otstupY) / numberOfRows;
-        float cardWidth = (screen.width) / numberOfColumns;
-
+        float cardHeight = (screen.rect.height - otstupY) / numberOfRows;
+        float cardWidth = (screen.rect.width) / numberOfColumns;
         
-        Vector3 scale = new Vector3(cardWidth / cards[0].GetComponent<MeshRenderer>().bounds.size.x / 2,
-            cardHeight / cards[0].GetComponent<MeshRenderer>().bounds.size.y / 2 , 1);
+        Vector3 scale = new Vector3(cardWidth / cards[0].GetComponent<MeshRenderer>().bounds.size.x * screen.transform.localScale.x * scaleMulX,
+            cardHeight / cards[0].GetComponent<MeshRenderer>().bounds.size.y * screen.transform.localScale.y * scaleMulY, 1);
 
         //set card positions
-        for (int row = 0; row < numberOfRows; ++row) 
+        for (int row = 0; row < numberOfRows; ++row)
         {
-            for (int column = 0; column < numberOfColumns && row * numberOfColumns + column < numberOfCards; ++column) 
+            for (int column = 0; column < numberOfColumns && row * numberOfColumns + column < numberOfCards; ++column)
             {
                 cards[row * numberOfColumns + column].transform.localScale = scale;
-                cards[row * numberOfColumns + column].transform.localPosition = new Vector3(- screen.width / 2 + cardWidth / 2 + cardWidth * column,
-                    screen.height / 2 - otstupY - cardHeight / 2 - cardHeight * row, 0) ;
+                cards[row * numberOfColumns + column].transform.localPosition = new Vector3(-screen.rect.width / 2 + cardWidth / 2 + cardWidth * column,
+                    screen.rect.height / 2 - otstupY - cardHeight / 2 - cardHeight * row, 0);
             }
         }
     }
