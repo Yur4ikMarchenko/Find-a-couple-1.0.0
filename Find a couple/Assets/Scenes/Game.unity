@@ -492,8 +492,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dafb7150424f1a4c8ff89f2d79bf7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleMulY: 1
-  scaleMulX: 0.9
+  scaleMulY: 0.9
+  scaleMulX: 0.6
   numberOfCards: 10
 --- !u!1 &1788409961
 GameObject:
