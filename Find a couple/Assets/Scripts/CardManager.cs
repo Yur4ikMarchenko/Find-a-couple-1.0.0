@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Animations;
 
 public class CardManager : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class CardManager : MonoBehaviour
     string[] number = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
     string[] mast = new string[] { "Club", "Diamond", "Heart", "Spades" };
     Object prefab;
+    object animation;
     //GameObject card;
 
     void Start()
@@ -53,6 +55,17 @@ public class CardManager : MonoBehaviour
             //cards[i + 1].AddComponent<Card>();
             cards[i] = (GameObject)Instantiate(prefab, FindObjectOfType<Canvas>().transform);
             cards[i + 1] = (GameObject)Instantiate(prefab, FindObjectOfType<Canvas>().transform);
+
+            //cards[i].AddComponent<Animation>();
+            //cards[i + 1].AddComponent<Animation>();
+            //animation = Resources.Load("Animations/flip");
+
+            //cards[i].GetComponent<Animation>().AddClip((AnimationClip)animation, "flip");
+            //cards[i + 1].GetComponent<Animation>().AddClip((AnimationClip)animation, "flip");
+            //cards[i].GetComponent<Animation>().Play("flip");
+            //cards[i + 1].GetComponent<Animation>().Play("flip");
+
+
             cards[i].transform.rotation = new Quaternion(0, 180, 0, 0);
             cards[i + 1].transform.rotation = new Quaternion(0, 180, 0, 0);
             }
