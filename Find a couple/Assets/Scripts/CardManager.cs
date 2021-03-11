@@ -19,24 +19,44 @@ public class CardManager : MonoBehaviour
         return i;
     }
 
+    GameObject GetPickedCard()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+            for (int i = 0; i < numberOfCards; ++i)
+                if (hit.collider == cards[i].GetComponent<Collider>())
+                    return cards[i];
+        }
+        return null;
+    }
+
+
     public float scaleMulY = 0.9f;
     public float scaleMulX = 0.6f;
 
-
-
     public int numberOfCards;
+
+    int flippedPairs;
 
     GameObject[] cards;
 
+    GameObject FlippedCard;
+    GameObject CardToUnFlip;
+
+
+
     string[] number = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
     string[] mast = new string[] { "Club", "Diamond", "Heart", "Spades" };
-    Object prefab;
-    //GameObject card;
 
     void Start()
     {
         //numberOfCards = 46;
+        FlippedCard = null;
+        CardToUnFlip = null;
 
+        flippedPairs = 0;
 
         int numberOfRows = CalculateNumberOfRows(numberOfCards);
         int numberOfColumns = numberOfCards / numberOfRows;
@@ -51,9 +71,12 @@ public class CardManager : MonoBehaviour
         GameObject t = new GameObject();
         t.name = "Card";
 
+        Object prefab;
+
         //initialize cards array
         cards = new GameObject[numberOfCards];
-        object animation = Resources.Load("Animations/CardFlip");
+        object animationFlip = Resources.Load("Animations/CardFlip");
+        object animationUnFlip = Resources.Load("Animations/CardUnFlip");
         //init random pairs of cards
         for (int i = 0; i < numberOfCards - 1; i += 2) 
         {
@@ -69,15 +92,18 @@ public class CardManager : MonoBehaviour
             cards[i] = (GameObject)Instantiate(prefab, cards[i].transform);
             cards[i + 1] = (GameObject)Instantiate(prefab, cards[i + 1].transform);
 
-            cards[i].AddComponent<Animation>();
-            cards[i].GetComponent<Animation>().AddClip((AnimationClip)animation, "flip");
-            cards[i].GetComponent<Animation>().Play("flip");
-            cards[i + 1].AddComponent<Animation>();
-            cards[i + 1].GetComponent<Animation>().AddClip((AnimationClip)animation, "flip");
-            cards[i + 1].GetComponent<Animation>().Play("flip");
+            cards[i].AddComponent<Card>();
+            cards[i + 1].AddComponent<Card>();
 
-            cards[i].transform.rotation = new Quaternion(0, 180, 0, 0);
-            cards[i + 1].transform.rotation = new Quaternion(0, 180, 0, 0);
+            cards[i].AddComponent<Animation>();
+            cards[i].GetComponent<Animation>().AddClip((AnimationClip)animationFlip, "Flip");
+            cards[i].GetComponent<Animation>().AddClip((AnimationClip)animationUnFlip, "UnFlip");
+            cards[i + 1].AddComponent<Animation>();
+            cards[i + 1].GetComponent<Animation>().AddClip((AnimationClip)animationFlip, "Flip");
+            cards[i + 1].GetComponent<Animation>().AddClip((AnimationClip)animationUnFlip, "UnFlip");
+
+            cards[i].transform.rotation = new Quaternion(0, 0, 0, 0);
+            cards[i + 1].transform.rotation = new Quaternion(0, 0, 0, 0);
         }
 
         GameObject.Destroy(t);
@@ -95,7 +121,6 @@ public class CardManager : MonoBehaviour
         RectTransform screen = canvas.GetComponent<RectTransform>();
 
         float otstupY = 35;
-        float otstupX = 0;
 
         float cardHeight = (screen.rect.height - otstupY) / numberOfRows;
         float cardWidth = (screen.rect.width) / numberOfColumns;
@@ -115,8 +140,48 @@ public class CardManager : MonoBehaviour
         }
     }
 
+
+
+
     void Update()
     {
+        if (Input.GetMouseButtonDown(0) && CardToUnFlip == null)
+        {
+            var pick = GetPickedCard();
+            if (pick != null && !pick.GetComponent<Card>().IsFlipped && !pick.GetComponent<Animation>().isPlaying)
+            {
+                var card = pick.GetComponent<Card>();
+                
+                if (FlippedCard == null)
+                {
+                    if(CardToUnFlip == null)
+                    {
+                        card.Flip();
+                        FlippedCard = pick;
+                    }
+                    
+                }
+                else
+                {
+                    card.Flip();
+                    if (pick.GetComponent<MeshRenderer>().name != FlippedCard.GetComponent<MeshRenderer>().name)
+                        CardToUnFlip = pick;
+                    else
+                    {
+                        FlippedCard = null;
+                        ++flippedPairs;
+                        Debug.Log("Flipped " + flippedPairs + " paids");
+                    }
+                }
+            }
+        }
+        if (CardToUnFlip != null && !CardToUnFlip.GetComponent<Animation>().isPlaying)
+        {
+            CardToUnFlip.GetComponent<Card>().UnFlip();
+            FlippedCard.GetComponent<Card>().UnFlip();
+            CardToUnFlip = null;
+            FlippedCard = null;
+        }
 
     }
 }
