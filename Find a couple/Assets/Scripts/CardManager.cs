@@ -34,16 +34,9 @@ public class CardManager : MonoBehaviour
 
     void ResizeField()
     {
-        canvas = FindObjectOfType<Canvas>();
-        menu = FindObjectOfType<MenuButton>().GetComponent<RectTransform>();
-
         screen = canvas.GetComponent<RectTransform>();
 
         otstupY = screen.rect.height * 0.2f;
-
-        menu.transform.localPosition = new Vector3(-screen.rect.width / 2 + screen.rect.width * 0.13f, screen.rect.height / 2 - otstupY / 2, 0);
-        menu.transform.localScale = new Vector3(screen.rect.width * 0.2f / menu.rect.width, screen.rect.height * 0.15f / menu.rect.height, 1);
-        
 
         float cardHeight = (screen.rect.height - otstupY) / numberOfRows;
         float cardWidth = (screen.rect.width) / numberOfColumns;
@@ -83,7 +76,6 @@ public class CardManager : MonoBehaviour
 
     Canvas canvas;
     RectTransform screen;
-    RectTransform menu;
 
     string[] number = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
     string[] mast = new string[] { "Club", "Diamond", "Heart", "Spades" };
@@ -91,7 +83,6 @@ public class CardManager : MonoBehaviour
     void Start()
     {
         canvas = FindObjectOfType<Canvas>();
-        menu = FindObjectOfType<MenuButton>().GetComponent<RectTransform>();
 
         //numberOfCards = 46;
         FlippedCard = null;
@@ -202,6 +193,6 @@ public class CardManager : MonoBehaviour
             CardToUnFlip = null;
             FlippedCard = null;
         }
-        ResizeField();
+        //ResizeField();
     }
 }
