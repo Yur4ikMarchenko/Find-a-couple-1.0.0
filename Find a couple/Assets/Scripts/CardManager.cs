@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 using UnityEditor.Animations;
 
@@ -17,6 +18,46 @@ public class CardManager : MonoBehaviour
             ++i;
         }
         return i;
+    }
+
+    bool UpdateTimer()
+    {
+        string rez = "";
+
+        timeLimit -= Time.deltaTime;
+        if (timeLimit <= 0)
+        {
+            timer.text = "00:00";
+            return true;
+        }
+        float secs = timeLimit % 60;
+        float mins = (timeLimit - secs) / 60;
+        secs -= secs % 1 - 1;
+
+        if (mins < 10) rez += '0';
+        rez += mins.ToString() + ':';
+        if (secs < 10) rez += '0';
+        rez += secs.ToString();
+
+        timer.text = rez;
+        return false;
+    }
+
+    bool UpdateTries()
+    {
+        --triesLimit;
+        tries.text = "Tries left: " + triesLimit.ToString();
+
+        Debug.Log(triesLimit);
+
+        if (triesLimit == 0)
+            return true;
+        return false;
+    }
+
+    void GameOver()
+    {
+
     }
 
     GameObject GetPickedCard()
@@ -56,7 +97,11 @@ public class CardManager : MonoBehaviour
             }
         }
     }
+    Text timer;
+    Text tries;
 
+    public float timeLimit;
+    public int triesLimit;
 
     public float scaleMulY = 0.9f;
     public float scaleMulX = 0.6f;
@@ -82,6 +127,10 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
+        timer = GameObject.Find("Timer").GetComponent<Text>();
+        tries = GameObject.Find("Tries").GetComponent<Text>();
+        tries.text += triesLimit;
+
         canvas = FindObjectOfType<Canvas>();
 
         //numberOfCards = 46;
@@ -188,11 +237,16 @@ public class CardManager : MonoBehaviour
         }
         if (CardToUnFlip != null && !CardToUnFlip.GetComponent<Animation>().isPlaying)
         {
+            if (UpdateTries())
+                GameOver();
             CardToUnFlip.GetComponent<Card>().UnFlip();
             FlippedCard.GetComponent<Card>().UnFlip();
             CardToUnFlip = null;
             FlippedCard = null;
         }
-        //ResizeField();
+
+
+        if (UpdateTimer())
+            GameOver();
     }
 }
