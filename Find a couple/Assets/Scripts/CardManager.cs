@@ -57,9 +57,15 @@ public class CardManager : MonoBehaviour
 
     void GameOver()
     {
-
+        gameOver = true;
+        gameOverPanel.gameObject.SetActive(true);
     }
 
+    void Victory()
+    {
+        victory = true;
+        victoryPanel.gameObject.SetActive(true);
+    }
     GameObject GetPickedCard()
     {
         RaycastHit hit;
@@ -100,6 +106,11 @@ public class CardManager : MonoBehaviour
     Text timer;
     Text tries;
 
+    bool gameOver;
+    bool victory;
+    GameObject gameOverPanel;
+    GameObject victoryPanel;
+
     public float timeLimit;
     public int triesLimit;
 
@@ -127,6 +138,13 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
+        gameOver = false;
+        victory = false;
+        gameOverPanel = GameObject.Find("GameOverPanel");
+        gameOverPanel.SetActive(false);
+        victoryPanel = GameObject.Find("VictoryPanel");
+        victoryPanel.SetActive(false);
+
         timer = GameObject.Find("Timer").GetComponent<Text>();
         tries = GameObject.Find("Tries").GetComponent<Text>();
         tries.text += triesLimit;
@@ -142,7 +160,6 @@ public class CardManager : MonoBehaviour
         numberOfRows = CalculateNumberOfRows(numberOfCards);
         numberOfColumns = numberOfCards / numberOfRows;
         if (numberOfColumns * numberOfRows < numberOfCards) ++numberOfColumns;
-
 
         var playingCars = from n in number
                           from m in mast
@@ -168,7 +185,7 @@ public class CardManager : MonoBehaviour
             cards[i] = Instantiate(t, canvas.transform);
             cards[i + 1] = Instantiate(t, canvas.transform);
 
-            //create actual pair of cards inside empty object and add an animation
+            //create actual pair of cards inside empty object and add some animations
             cards[i] = (GameObject)Instantiate(prefab, cards[i].transform);
             cards[i + 1] = (GameObject)Instantiate(prefab, cards[i + 1].transform);
 
@@ -200,12 +217,9 @@ public class CardManager : MonoBehaviour
         ResizeField();
     }
 
-
-
-
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && CardToUnFlip == null)
+        if (Input.GetMouseButtonDown(0) && CardToUnFlip == null && !gameOver)
         {
             var pick = GetPickedCard();
             if (pick != null && !pick.GetComponent<Card>().IsFlipped && !pick.GetComponent<Animation>().isPlaying)
@@ -245,8 +259,12 @@ public class CardManager : MonoBehaviour
             FlippedCard = null;
         }
 
-
-        if (UpdateTimer())
-            GameOver();
+        if (!gameOver && !victory)
+        {
+            if(UpdateTimer())
+               GameOver();
+            if (flippedPairs == numberOfCards / 2)
+                Victory();
+        }
     }
 }
