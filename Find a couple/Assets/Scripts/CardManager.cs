@@ -32,12 +32,48 @@ public class CardManager : MonoBehaviour
         return null;
     }
 
+    void ResizeField()
+    {
+        canvas = FindObjectOfType<Canvas>();
+        menu = FindObjectOfType<MenuButton>().GetComponent<RectTransform>();
+
+        screen = canvas.GetComponent<RectTransform>();
+
+        otstupY = screen.rect.height * 0.2f;
+
+        menu.transform.localPosition = new Vector3(-screen.rect.width / 2 + screen.rect.width * 0.13f, screen.rect.height / 2 - otstupY / 2, 0);
+        menu.transform.localScale = new Vector3(screen.rect.width * 0.2f / menu.rect.width, screen.rect.height * 0.15f / menu.rect.height, 1);
+        
+
+        float cardHeight = (screen.rect.height - otstupY) / numberOfRows;
+        float cardWidth = (screen.rect.width) / numberOfColumns;
+
+        Vector3 scale = new Vector3(cardWidth / (cards[0].GetComponent<MeshRenderer>().bounds.size.x / cards[0].transform.parent.localScale.x) * screen.transform.localScale.x * scaleMulX,
+            cardHeight / (cards[0].GetComponent<MeshRenderer>().bounds.size.y / cards[0].transform.parent.localScale.y) * screen.transform.localScale.y * scaleMulY, 1);
+
+
+        //set card positions
+        for (int row = 0; row < numberOfRows; ++row)
+        {
+            for (int column = 0; column < numberOfColumns && row * numberOfColumns + column < numberOfCards; ++column)
+            {
+                cards[row * numberOfColumns + column].transform.parent.localScale = scale;
+                cards[row * numberOfColumns + column].transform.parent.localPosition = new Vector3(-screen.rect.width / 2 + cardWidth / 2 + cardWidth * column,
+                    screen.rect.height / 2 - otstupY - cardHeight / 2 - cardHeight * row, 0);
+            }
+        }
+    }
+
 
     public float scaleMulY = 0.9f;
     public float scaleMulX = 0.6f;
 
     public int numberOfCards;
 
+    float otstupY;
+
+    int numberOfRows;
+    int numberOfColumns;
     int flippedPairs;
 
     GameObject[] cards;
@@ -45,21 +81,26 @@ public class CardManager : MonoBehaviour
     GameObject FlippedCard;
     GameObject CardToUnFlip;
 
-
+    Canvas canvas;
+    RectTransform screen;
+    RectTransform menu;
 
     string[] number = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
     string[] mast = new string[] { "Club", "Diamond", "Heart", "Spades" };
 
     void Start()
     {
+        canvas = FindObjectOfType<Canvas>();
+        menu = FindObjectOfType<MenuButton>().GetComponent<RectTransform>();
+
         //numberOfCards = 46;
         FlippedCard = null;
         CardToUnFlip = null;
 
         flippedPairs = 0;
 
-        int numberOfRows = CalculateNumberOfRows(numberOfCards);
-        int numberOfColumns = numberOfCards / numberOfRows;
+        numberOfRows = CalculateNumberOfRows(numberOfCards);
+        numberOfColumns = numberOfCards / numberOfRows;
         if (numberOfColumns * numberOfRows < numberOfCards) ++numberOfColumns;
 
 
@@ -67,7 +108,6 @@ public class CardManager : MonoBehaviour
                           from m in mast
                           select n + m;
 
-        Canvas canvas = FindObjectOfType<Canvas>();
         GameObject t = new GameObject();
         t.name = "Card";
 
@@ -117,27 +157,7 @@ public class CardManager : MonoBehaviour
             cards[j] = temp;
         }
 
-
-        RectTransform screen = canvas.GetComponent<RectTransform>();
-
-        float otstupY = 35;
-
-        float cardHeight = (screen.rect.height - otstupY) / numberOfRows;
-        float cardWidth = (screen.rect.width) / numberOfColumns;
-        
-        Vector3 scale = new Vector3(cardWidth / cards[0].GetComponent<MeshRenderer>().bounds.size.x * screen.transform.localScale.x * scaleMulX,
-            cardHeight / cards[0].GetComponent<MeshRenderer>().bounds.size.y * screen.transform.localScale.y * scaleMulY, 1);
-
-        //set card positions
-        for (int row = 0; row < numberOfRows; ++row)
-        {
-            for (int column = 0; column < numberOfColumns && row * numberOfColumns + column < numberOfCards; ++column)
-            {
-                cards[row * numberOfColumns + column].transform.parent.localScale = scale;
-                cards[row * numberOfColumns + column].transform.parent.localPosition = new Vector3(-screen.rect.width / 2 + cardWidth / 2 + cardWidth * column,
-                    screen.rect.height / 2 - otstupY - cardHeight / 2 - cardHeight * row, 0);
-            }
-        }
+        ResizeField();
     }
 
 
@@ -182,6 +202,6 @@ public class CardManager : MonoBehaviour
             CardToUnFlip = null;
             FlippedCard = null;
         }
-
+        ResizeField();
     }
 }
