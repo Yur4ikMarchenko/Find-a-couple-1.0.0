@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 122504321}
   - component: {fileID: 122504320}
   m_Layer: 5
-  m_Name: lvl4 (3)
+  m_Name: lvl10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -946,7 +946,7 @@ GameObject:
   - component: {fileID: 513178063}
   - component: {fileID: 513178062}
   m_Layer: 5
-  m_Name: lvl1 (1)
+  m_Name: lvl6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1632,7 +1632,7 @@ GameObject:
   - component: {fileID: 759193280}
   - component: {fileID: 759193279}
   m_Layer: 5
-  m_Name: lvl4 (2)
+  m_Name: lvl9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2851,7 +2851,7 @@ GameObject:
   - component: {fileID: 1637933905}
   - component: {fileID: 1637933904}
   m_Layer: 5
-  m_Name: lvl3 (1)
+  m_Name: lvl8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2993,7 +2993,7 @@ GameObject:
   - component: {fileID: 1638515771}
   - component: {fileID: 1638515770}
   m_Layer: 5
-  m_Name: lvl4 (1)
+  m_Name: lvl5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3369,7 +3369,7 @@ GameObject:
   - component: {fileID: 1841039754}
   - component: {fileID: 1841039753}
   m_Layer: 5
-  m_Name: lvl2 (1)
+  m_Name: lvl7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

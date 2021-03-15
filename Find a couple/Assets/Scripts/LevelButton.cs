@@ -15,12 +15,12 @@ public class LevelButton : MonoBehaviour
 
     private void Awake()
     {
-        GetComponent<Button>().interactable = LevelManager.IsLevelAvailable(int.Parse(GetComponentInChildren<Text>().text.Substring(5)) - 1);
+        GetComponent<Button>().interactable = LevelManager.IsLevelAvailable(int.Parse(name.Substring(3)) - 1);
     }
 
     private void Update()
     {
         Debug.Log(LevelManager.IsLevelAvailable(1));
-        GetComponent<Button>().interactable = LevelManager.IsLevelAvailable(int.Parse(GetComponentInChildren<Text>().text.Substring(5)) - 1);
+        GetComponent<Button>().interactable = LevelManager.IsLevelAvailable(int.Parse(name.Substring(3)) - 1);
     }
 }

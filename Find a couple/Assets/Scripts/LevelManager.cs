@@ -22,8 +22,14 @@ public class LevelManager : MonoBehaviour
 {
     static Level[] levels = new Level[] { new Level(2,15,2),
                                    new Level(4,15,3),
-                                   new Level(5,20,3),
-                                   new Level(7,30,6)};
+                                   new Level(5,20,4),
+                                   new Level(6,30,6),
+                                   new Level(7,30,8),
+                                   new Level(8,30,10),
+                                   new Level(9,30,12),
+                                   new Level(10,30,14),
+                                   new Level(11,30,14),
+                                   new Level(12,30,16)};
 
     public static int currentLevel { get; private set; }
 
