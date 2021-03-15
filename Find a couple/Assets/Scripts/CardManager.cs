@@ -139,6 +139,7 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
+        GameObject.FindObjectOfType<AudioSource>().volume= Options.volume;
         gameOver = false;
         victory = false;
         gameOverPanel = GameObject.Find("GameOverPanel");
