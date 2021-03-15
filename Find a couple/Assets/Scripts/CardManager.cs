@@ -63,6 +63,7 @@ public class CardManager : MonoBehaviour
 
     void Victory()
     {
+        LevelManager.Clear();
         victory = true;
         victoryPanel.gameObject.SetActive(true);
     }
@@ -151,7 +152,10 @@ public class CardManager : MonoBehaviour
 
         canvas = FindObjectOfType<Canvas>();
 
-        //numberOfCards = 46;
+        numberOfCards = LevelManager.pairs * 2;
+        timeLimit = LevelManager.limit;
+        triesLimit = LevelManager.tries;
+
         FlippedCard = null;
         CardToUnFlip = null;
 
