@@ -139,9 +139,16 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
+        //load level data
         GameObject.FindObjectOfType<AudioSource>().volume= Options.volume;
+        numberOfCards = LevelManager.pairs * 2;
+        timeLimit = LevelManager.limit;
+        triesLimit = LevelManager.tries;
+
+
         gameOver = false;
         victory = false;
+
         gameOverPanel = GameObject.Find("GameOverPanel");
         gameOverPanel.SetActive(false);
         victoryPanel = GameObject.Find("VictoryPanel");
@@ -152,10 +159,6 @@ public class CardManager : MonoBehaviour
         tries.text += triesLimit;
 
         canvas = FindObjectOfType<Canvas>();
-
-        numberOfCards = LevelManager.pairs * 2;
-        timeLimit = LevelManager.limit;
-        triesLimit = LevelManager.tries;
 
         FlippedCard = null;
         CardToUnFlip = null;
