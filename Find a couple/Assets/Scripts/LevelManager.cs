@@ -26,10 +26,10 @@ public class LevelManager : MonoBehaviour
                                    new Level(6,30,6),
                                    new Level(7,30,8),
                                    new Level(8,30,10),
-                                   new Level(9,30,12),
-                                   new Level(10,30,14),
-                                   new Level(11,30,14),
-                                   new Level(12,30,16)};
+                                   new Level(9,35,12),
+                                   new Level(10,40,14),
+                                   new Level(11,45,14),
+                                   new Level(12,50,16)};
 
     public static int currentLevel { get; private set; }
 
