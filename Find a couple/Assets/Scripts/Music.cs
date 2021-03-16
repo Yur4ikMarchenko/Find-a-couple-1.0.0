@@ -6,24 +6,33 @@ using UnityEngine.UI;
 public class Music : MonoBehaviour
 {
     public AudioSource AudioSource;
-    private float musicVolume = Options.volume;
+
+
+    private static Music instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+        DontDestroyOnLoad(AudioSource.gameObject);
+    }
+
     void Start()
     {
-        Debug.Log(Options.musicTime);
-
-        AudioSource.time = Options.musicTime;
         AudioSource.Play();
     }
 
    
     void Update()
     {
-        Options.musicTime = AudioSource.time;
-        AudioSource.volume = musicVolume;
+        AudioSource.volume = Options.volume;
     }
 
-    public void updatesVolume(float volume)
-    {
-        musicVolume = Options.volume = volume;
-    }
+
 }

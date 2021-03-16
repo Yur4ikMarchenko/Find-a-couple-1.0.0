@@ -10,4 +10,8 @@ public class VolumeSliderPosition : MonoBehaviour
         GetComponent<Slider>().value = Options.volume;
     }
 
+    public void updatesVolume(float volume)
+    {
+        Options.volume = volume;
+    }
 }
