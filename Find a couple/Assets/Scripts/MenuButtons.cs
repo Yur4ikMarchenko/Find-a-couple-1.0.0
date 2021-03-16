@@ -7,6 +7,7 @@ public class MenuButtons : MonoBehaviour
 {
     public void GoToMainMenu()
     {
+        //Options.volume = 
         SceneManager.LoadScene("Menu");
     }
 
