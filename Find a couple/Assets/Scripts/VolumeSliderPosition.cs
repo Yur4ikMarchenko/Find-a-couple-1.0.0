@@ -12,6 +12,7 @@ public class VolumeSliderPosition : MonoBehaviour
 
     public void updatesVolume(float volume)
     {
+        PlayerPrefs.SetFloat("MusicVolume", volume);
         Options.volume = volume;
     }
 }

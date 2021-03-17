@@ -33,6 +33,4 @@ public class Music : MonoBehaviour
     {
         AudioSource.volume = Options.volume;
     }
-
-
 }

@@ -2,6 +2,5 @@
 
 public class Options : MonoBehaviour
 {
-    public static AudioSource music = null;
     public static float volume = 0.5f;
 }
