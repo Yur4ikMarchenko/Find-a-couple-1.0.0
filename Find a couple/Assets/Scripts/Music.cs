@@ -26,6 +26,7 @@ public class Music : MonoBehaviour
     void Start()
     {
         AudioSource.Play();
+        AudioListener.pause = Options.isMusicMuted;
     }
 
    
