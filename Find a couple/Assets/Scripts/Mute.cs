@@ -5,6 +5,6 @@ public class Mute : MonoBehaviour
     public bool MutedMusic = true;
     public void MuteMusic()
     {
-        AudioListener.pause = MutedMusic; 
+        AudioListener.pause = MutedMusic;
     }
 }
