@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 127076117}
   - component: {fileID: 127076116}
   m_Layer: 5
-  m_Name: Reset Progress
+  m_Name: ResetProgress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
