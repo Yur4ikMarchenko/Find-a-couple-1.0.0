@@ -20,16 +20,16 @@ struct Level
 
 public class LevelManager : MonoBehaviour
 {
-    static Level[] levels = new Level[] { new Level(2,15,2),
-                                   new Level(4,15,3),
-                                   new Level(5,20,4),
-                                   new Level(6,30,6),
+    static Level[] levels = new Level[] { new Level(2,10,2),
+                                   new Level(4,15,4),
+                                   new Level(5,20,5),
+                                   new Level(6,25,6),
                                    new Level(7,30,8),
-                                   new Level(8,30,10),
-                                   new Level(9,35,12),
-                                   new Level(10,40,14),
-                                   new Level(11,45,14),
-                                   new Level(12,50,16)};
+                                   new Level(8,35,10),
+                                   new Level(9,40,12),
+                                   new Level(10,45,14),
+                                   new Level(11,55,14),
+                                   new Level(12,65,18)};
 
     public static int currentLevel { get; private set; }
 
