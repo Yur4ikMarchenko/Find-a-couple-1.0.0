@@ -20,7 +20,6 @@ public class LevelButton : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(LevelManager.IsLevelAvailable(1));
         GetComponent<Button>().interactable = LevelManager.IsLevelAvailable(int.Parse(name.Substring(3)) - 1);
     }
 }

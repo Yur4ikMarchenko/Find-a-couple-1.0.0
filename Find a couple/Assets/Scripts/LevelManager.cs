@@ -48,6 +48,7 @@ public class LevelManager : MonoBehaviour
     public static void Clear()
     {
         levels[currentLevel].clear = true;
+        SaveLevelProgress();
     }
 
     public static bool IsLevelAvailable(int index)
@@ -59,5 +60,33 @@ public class LevelManager : MonoBehaviour
     public static bool IsLastLevel()
     {
         return currentLevel == levels.Length - 1;
+    }
+
+    public static void LoadLevelProgress()
+    {
+        int lvl = 0;
+        if (PlayerPrefs.HasKey("LastOpenLevel"))
+            lvl = PlayerPrefs.GetInt("LastOpenLevel");
+        for (int i = 0; i < levels.Length; ++i)
+        {
+            levels[i].clear = i <= lvl;
+        }
+
+    }
+
+    public static void SaveLevelProgress()
+    {
+        for(int i = 0; i < levels.Length;++i)
+            if(!levels[i].clear)
+            {
+                PlayerPrefs.SetInt("LastOpenLevel", i - 1);
+                break;
+            }
+    }
+
+    public static void ResetProgress()
+    {
+        PlayerPrefs.DeleteKey("LastOpenLevel");
+        LoadLevelProgress();
     }
 }
