@@ -1006,6 +1006,7 @@ GameObject:
   - component: {fileID: 272692308}
   - component: {fileID: 272692307}
   - component: {fileID: 272692306}
+  - component: {fileID: 272692309}
   m_Layer: 5
   m_Name: Change fon 1
   m_TagString: Untagged
@@ -1076,42 +1077,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1189517946}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2108504133}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1984055730}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 817951180}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 272692309}
+        m_MethodName: ChangeDoubleButtonState
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1157,6 +1125,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272692304}
   m_CullTransparentMesh: 0
+--- !u!114 &272692309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272692304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e4df7d50b791d845b594ddd5fa7551a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  darkTheme: 0
+  fon: {fileID: 1189517946}
+  darkFon: {fileID: 2108504133}
+  on: {fileID: 817951182}
+  off: {fileID: 1984055731}
 --- !u!1 &314514356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,6 +1282,7 @@ GameObject:
   - component: {fileID: 344720550}
   - component: {fileID: 344720549}
   - component: {fileID: 344720548}
+  - component: {fileID: 344720551}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1369,6 +1355,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &344720551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344720547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13171edc02e35a459b10228a3d4d0df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fon: {fileID: 1189517946}
+  darkFon: {fileID: 2108504133}
 --- !u!1 &378794577
 GameObject:
   m_ObjectHideFlags: 0
@@ -1822,6 +1822,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dafb7150424f1a4c8ff89f2d79bf7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menu: {fileID: 256808861}
+  options: {fileID: 159409324}
   timeLimit: 150
   triesLimit: 5
   scaleMulY: 0.9
@@ -3245,6 +3247,7 @@ GameObject:
   - component: {fileID: 1380028461}
   - component: {fileID: 1380028460}
   - component: {fileID: 1380028459}
+  - component: {fileID: 1380028462}
   m_Layer: 5
   m_Name: Change fon
   m_TagString: Untagged
@@ -3315,42 +3318,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1189517946}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2108504133}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 817951180}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1984055730}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1380028462}
+        m_MethodName: ChangeDoubleButtonState
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3396,6 +3366,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380028457}
   m_CullTransparentMesh: 0
+--- !u!114 &1380028462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380028457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e4df7d50b791d845b594ddd5fa7551a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  darkTheme: 1
+  fon: {fileID: 1189517946}
+  darkFon: {fileID: 2108504133}
+  on: {fileID: 817951182}
+  off: {fileID: 1984055731}
 --- !u!1 &1532665022
 GameObject:
   m_ObjectHideFlags: 0

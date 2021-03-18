@@ -100,6 +100,11 @@ public class CardManager : MonoBehaviour
             }
         }
     }
+
+    public GameObject menu;
+    public GameObject options;
+
+
     Text timer;
     Text tries;
 
@@ -178,11 +183,24 @@ public class CardManager : MonoBehaviour
         cards = new GameObject[numberOfCards];
         object animationFlip = Resources.Load("Animations/CardFlip");
         object animationUnFlip = Resources.Load("Animations/CardUnFlip");
-        //init random pairs of cards
+        bool[] usedCards = new bool[playingCars.ToArray().Length];
+        for(int i = 0; i< usedCards.Length;++i)
+        {
+            usedCards[i] = false;
+        }
+        //init random pairs of cards    
         for (int i = 0; i < numberOfCards - 1; i += 2) 
         {
+            //find card that hasn't been used yet
+            int temp;
+            do
+            {
+                temp = Random.Range(0, usedCards.Length);
+            }
+            while (usedCards[temp]);
+            usedCards[temp] = true;
             //load random card
-            prefab = Resources.Load("Free_Playing_Cards/PlayingCards_"+playingCars.ToArray()[Random.Range(0,playingCars.ToArray().Length)]);
+            prefab = Resources.Load("Free_Playing_Cards/PlayingCards_"+playingCars.ToArray()[temp]);
 
 
             //create empty pair of "Card" objects
@@ -223,7 +241,7 @@ public class CardManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && CardToUnFlip == null && !gameOver)
+        if (!menu.gameObject.activeSelf && !options.gameObject.activeSelf && Input.GetMouseButtonDown(0) && CardToUnFlip == null && !gameOver)
         {
             var pick = GetPickedCard();
             if (pick != null && !pick.GetComponent<Card>().IsFlipped && !pick.GetComponent<Animation>().isPlaying)
@@ -253,7 +271,7 @@ public class CardManager : MonoBehaviour
                 }
             }
         }
-        if (CardToUnFlip != null && !CardToUnFlip.GetComponent<Animation>().isPlaying)
+        if (!menu.gameObject.activeSelf && !options.gameObject.activeSelf && CardToUnFlip != null && !CardToUnFlip.GetComponent<Animation>().isPlaying)
         {
             if (UpdateTries())
                 GameOver();
@@ -263,12 +281,12 @@ public class CardManager : MonoBehaviour
             FlippedCard = null;
         }
 
-        if (!gameOver && !victory)
+        if (!menu.gameObject.activeSelf && !options.gameObject.activeSelf && !gameOver && !victory)
         {
             if(UpdateTimer())
                GameOver();
             if (flippedPairs == numberOfCards / 2)
-                Victory();
+               Victory();
         }
     }
 }
