@@ -7,14 +7,14 @@ struct Level
     public int numberOfPairs { get; }
     public int timeLimit { get; }
     public int tries { get; }
-    public bool clear { get; set; }
+    public bool available { get; set; }
 
     public Level(int n,int tl,int t)
     {
         numberOfPairs = n;
         timeLimit = tl;
         tries = t;
-        clear = false;
+        available = false;
     }
 }
 
@@ -47,7 +47,8 @@ public class LevelManager : MonoBehaviour
 
     public static void Clear()
     {
-        levels[currentLevel].clear = true;
+        if(currentLevel<levels.Length-2)
+            levels[currentLevel + 1].available = true;
         SaveLevelProgress();
     }
 
@@ -55,7 +56,7 @@ public class LevelManager : MonoBehaviour
     {
         if (index == 0)
             return true;
-        return levels[index - 1].clear;
+        return levels[index].available;
     }
     public static bool IsLastLevel()
     {
@@ -65,19 +66,19 @@ public class LevelManager : MonoBehaviour
     public static void LoadLevelProgress()
     {
         int lvl = 0;
-        if (PlayerPrefs.HasKey("LastOpenLevel"))
+        if (PlayerPrefs.HasKey("LastOpenLevel") && PlayerPrefs.GetInt("LastOpenLevel") > 0)
             lvl = PlayerPrefs.GetInt("LastOpenLevel");
         for (int i = 0; i < levels.Length; ++i)
         {
-            levels[i].clear = i <= lvl;
+            Debug.Log("lvl" + i.ToString()+" is "+(i<=lvl).ToString());
+            levels[i].available = i <= lvl;
         }
-
     }
 
     public static void SaveLevelProgress()
     {
         for(int i = 0; i < levels.Length;++i)
-            if(!levels[i].clear)
+            if(!levels[i].available)
             {
                 PlayerPrefs.SetInt("LastOpenLevel", i - 1);
                 break;
