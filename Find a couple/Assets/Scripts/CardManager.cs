@@ -183,6 +183,7 @@ public class CardManager : MonoBehaviour
         cards = new GameObject[numberOfCards];
         object animationFlip = Resources.Load("Animations/CardFlip");
         object animationUnFlip = Resources.Load("Animations/CardUnFlip");
+        object animationSpawn = Resources.Load("Animations/Spawn");
         bool[] usedCards = new bool[playingCars.ToArray().Length];
         for(int i = 0; i< usedCards.Length;++i)
         {
@@ -217,12 +218,18 @@ public class CardManager : MonoBehaviour
             cards[i].AddComponent<Animation>();
             cards[i].GetComponent<Animation>().AddClip((AnimationClip)animationFlip, "Flip");
             cards[i].GetComponent<Animation>().AddClip((AnimationClip)animationUnFlip, "UnFlip");
+            cards[i].GetComponent<Animation>().AddClip((AnimationClip)animationSpawn, "Spawn");
             cards[i + 1].AddComponent<Animation>();
             cards[i + 1].GetComponent<Animation>().AddClip((AnimationClip)animationFlip, "Flip");
             cards[i + 1].GetComponent<Animation>().AddClip((AnimationClip)animationUnFlip, "UnFlip");
+            cards[i + 1].GetComponent<Animation>().AddClip((AnimationClip)animationSpawn, "Spawn");
 
             cards[i].transform.rotation = new Quaternion(0, 0, 0, 0);
             cards[i + 1].transform.rotation = new Quaternion(0, 0, 0, 0);
+
+            //playing spawn animation
+            cards[i].GetComponent<Animation>().Play("Spawn");
+            cards[i + 1].GetComponent<Animation>().Play("Spawn");
         }
 
         GameObject.Destroy(t);
@@ -281,7 +288,7 @@ public class CardManager : MonoBehaviour
             FlippedCard = null;
         }
 
-        if (!menu.gameObject.activeSelf && !options.gameObject.activeSelf && !gameOver && !victory)
+        if (!cards[0].GetComponent<Animation>().IsPlaying("Spawn") && !menu.gameObject.activeSelf && !options.gameObject.activeSelf && !gameOver && !victory)
         {
             if(UpdateTimer())
                GameOver();
