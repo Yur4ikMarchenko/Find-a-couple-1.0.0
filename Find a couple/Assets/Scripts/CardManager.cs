@@ -43,9 +43,6 @@ public class CardManager : MonoBehaviour
     {
         --triesLimit;
         tries.text = "Tries left: " + triesLimit.ToString();
-
-        Debug.Log(triesLimit);
-
         if (triesLimit == 0)
             return true;
         return false;

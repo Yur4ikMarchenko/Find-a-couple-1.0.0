@@ -1827,7 +1827,7 @@ MonoBehaviour:
   timeLimit: 150
   triesLimit: 5
   scaleMulY: 0.9
-  scaleMulX: 0.6
+  scaleMulX: 0.4
   numberOfCards: 10
 --- !u!1 &707400658
 GameObject:
@@ -2482,7 +2482,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9cf45d03cc818849b37e0498222541e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  victoryText: {fileID: 0}
 --- !u!114 &1163257168
 MonoBehaviour:
   m_ObjectHideFlags: 0
