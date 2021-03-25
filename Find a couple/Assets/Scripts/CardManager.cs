@@ -87,9 +87,9 @@ public class CardManager : MonoBehaviour
         float cardHeight = (screen.rect.height - otstupY) / numberOfRows;
         float cardWidth = (screen.rect.width) / numberOfColumns;
 
-        Vector3 scale = new Vector3(cardWidth / (cards[0].GetComponent<MeshRenderer>().bounds.size.x / cards[0].transform.parent.localScale.x) * screen.transform.localScale.x * scaleMulX,
-            cardHeight / (cards[0].GetComponent<MeshRenderer>().bounds.size.y / cards[0].transform.parent.localScale.y) * screen.transform.localScale.y * scaleMulY, 1);
+        float scaleF = cardHeight / (cards[0].GetComponent<MeshRenderer>().bounds.size.y / cards[0].transform.parent.localScale.y) * screen.transform.localScale.y * scaleMulY;
 
+        Vector3 scale = new Vector3(scaleF,scaleF,1);
 
         //set card positions
         for (int row = 0; row < numberOfRows; ++row)
