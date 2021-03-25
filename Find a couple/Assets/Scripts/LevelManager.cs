@@ -37,6 +37,8 @@ public class LevelManager : MonoBehaviour
     public static int limit;
     public static int tries;
 
+    public static bool casual;
+
     public static void SetLevel(int index)
     {
         pairs = levels[index].numberOfPairs;

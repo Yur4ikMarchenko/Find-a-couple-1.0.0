@@ -8,6 +8,7 @@ public class LevelButton : MonoBehaviour
 {
     public void StartLevel()
     {
+        LevelManager.casual = false;
         Options.volume = GameObject.FindObjectOfType<AudioSource>().volume;
         LevelManager.SetLevel(int.Parse(name.Substring(3)) - 1);
         SceneManager.LoadScene("Game");

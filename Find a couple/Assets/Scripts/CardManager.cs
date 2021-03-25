@@ -56,9 +56,14 @@ public class CardManager : MonoBehaviour
 
     void Victory()
     {
-        LevelManager.Clear();
+        if (LevelManager.casual)
+            casualVictoryPanel.SetActive(true);
+        else
+        {
+            LevelManager.Clear();
+            victoryPanel.gameObject.SetActive(true);
+        }
         victory = true;
-        victoryPanel.gameObject.SetActive(true);
     }
     GameObject GetPickedCard()
     {
@@ -107,8 +112,9 @@ public class CardManager : MonoBehaviour
 
     bool gameOver;
     bool victory;
-    GameObject gameOverPanel;
-    GameObject victoryPanel;
+    public GameObject gameOverPanel;
+    public GameObject victoryPanel;
+    public GameObject casualVictoryPanel;
 
     public float timeLimit;
     public int triesLimit;
@@ -143,14 +149,8 @@ public class CardManager : MonoBehaviour
         timeLimit = LevelManager.limit;
         triesLimit = LevelManager.tries;
 
-
         gameOver = false;
         victory = false;
-
-        gameOverPanel = GameObject.Find("GameOverPanel");
-        gameOverPanel.SetActive(false);
-        victoryPanel = GameObject.Find("VictoryPanel");
-        victoryPanel.SetActive(false);
 
         timer = GameObject.Find("Timer").GetComponent<Text>();
         tries = GameObject.Find("Tries").GetComponent<Text>();
@@ -241,6 +241,12 @@ public class CardManager : MonoBehaviour
         }
 
         ResizeField();
+
+        if(LevelManager.casual)
+        {
+            timer.gameObject.SetActive(false);
+            tries.gameObject.SetActive(false);
+        }
     }
 
     void Update()
@@ -277,7 +283,7 @@ public class CardManager : MonoBehaviour
         }
         if (!menu.gameObject.activeSelf && !options.gameObject.activeSelf && CardToUnFlip != null && !CardToUnFlip.GetComponent<Animation>().isPlaying)
         {
-            if (UpdateTries())
+            if (!LevelManager.casual && UpdateTries())
                 GameOver();
             CardToUnFlip.GetComponent<Card>().UnFlip();
             FlippedCard.GetComponent<Card>().UnFlip();
@@ -287,7 +293,7 @@ public class CardManager : MonoBehaviour
 
         if (!cards[0].GetComponent<Animation>().IsPlaying("Spawn") && !menu.gameObject.activeSelf && !options.gameObject.activeSelf && !gameOver && !victory)
         {
-            if(UpdateTimer())
+            if(!LevelManager.casual && UpdateTimer())
                GameOver();
             if (flippedPairs == numberOfCards / 2)
                Victory();
