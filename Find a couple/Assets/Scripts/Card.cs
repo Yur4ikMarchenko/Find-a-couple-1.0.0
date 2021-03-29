@@ -28,6 +28,8 @@ public class Card : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GameObject.Destroy(GetComponent<BoxCollider>());
+        gameObject.AddComponent<BoxCollider>();
+        Debug.Log(GetComponent<BoxCollider>().size.x);
     }
 }
