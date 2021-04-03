@@ -74,10 +74,7 @@ public class LevelManager : MonoBehaviour
         if (PlayerPrefs.HasKey("LastOpenLevel") && PlayerPrefs.GetInt("LastOpenLevel") > 0)
             lvl = PlayerPrefs.GetInt("LastOpenLevel");
         for (int i = 0; i < levels.Length; ++i)
-        {
-            Debug.Log("lvl" + i.ToString()+" is "+(i<=lvl).ToString());
             levels[i].available = i <= lvl;
-        }
     }
 
     public static void SaveLevelProgress()

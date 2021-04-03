@@ -30,6 +30,5 @@ public class Card : MonoBehaviour
     {
         GameObject.Destroy(GetComponent<BoxCollider>());
         gameObject.AddComponent<BoxCollider>();
-        Debug.Log(GetComponent<BoxCollider>().size.x);
     }
 }

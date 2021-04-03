@@ -276,7 +276,6 @@ public class CardManager : MonoBehaviour
                     {
                         FlippedCard = null;
                         ++flippedPairs;
-                        Debug.Log("Flipped " + flippedPairs + " paids");
                     }
                 }
             }
