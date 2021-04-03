@@ -141,8 +141,16 @@ public class CardManager : MonoBehaviour
     string[] number = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
     string[] mast = new string[] { "Club", "Diamond", "Heart", "Spades" };
 
+    float spawnAnimationLength = 59 / 60f;     //105 frames of 60fps animation
+    float unFlipAnimationLength = 45 / 60f;      
+    float initialCardOpeningDuration = 1f;      //for how long cards will be shown at the begining, seconds
+    float timeFromStart = 0;
+    float startGameAfter;
+
     void Start()
     {
+        startGameAfter = spawnAnimationLength + unFlipAnimationLength + initialCardOpeningDuration;
+
         //load level data
         GameObject.FindObjectOfType<AudioSource>().volume= Options.volume;
         numberOfCards = LevelManager.pairs * 2;
@@ -251,7 +259,14 @@ public class CardManager : MonoBehaviour
 
     void Update()
     {
-        if (!menu.gameObject.activeSelf && !options.gameObject.activeSelf && Input.GetMouseButtonDown(0) && CardToUnFlip == null && !gameOver)
+        //wait some time after begining of the level and hide cards
+        if(!cards[0].GetComponent<Animation>().IsPlaying("Unflip") && timeFromStart < startGameAfter && timeFromStart > spawnAnimationLength + initialCardOpeningDuration)
+            for(int i = 0; i < numberOfCards;++i)
+                cards[i].GetComponent<Card>().UnFlip();
+        timeFromStart += Time.deltaTime;
+
+
+        if (timeFromStart > startGameAfter && !menu.gameObject.activeSelf && !options.gameObject.activeSelf && Input.GetMouseButtonDown(0) && CardToUnFlip == null && !gameOver)
         {
             var pick = GetPickedCard();
             if (pick != null && !pick.GetComponent<Card>().IsFlipped && !pick.GetComponent<Animation>().isPlaying)
@@ -280,7 +295,7 @@ public class CardManager : MonoBehaviour
                 }
             }
         }
-        if (!menu.gameObject.activeSelf && !options.gameObject.activeSelf && CardToUnFlip != null && !CardToUnFlip.GetComponent<Animation>().isPlaying)
+        if (timeFromStart > startGameAfter && !menu.gameObject.activeSelf && !options.gameObject.activeSelf && CardToUnFlip != null && !CardToUnFlip.GetComponent<Animation>().isPlaying)
         {
             if (!LevelManager.casual && UpdateTries())
                 GameOver();
@@ -290,7 +305,8 @@ public class CardManager : MonoBehaviour
             FlippedCard = null;
         }
 
-        if (!cards[0].GetComponent<Animation>().IsPlaying("Spawn") && !menu.gameObject.activeSelf && !options.gameObject.activeSelf && !gameOver && !victory)
+
+        if (timeFromStart > startGameAfter && !menu.gameObject.activeSelf && !options.gameObject.activeSelf && !gameOver && !victory)
         {
             if(!LevelManager.casual && UpdateTimer())
                GameOver();
