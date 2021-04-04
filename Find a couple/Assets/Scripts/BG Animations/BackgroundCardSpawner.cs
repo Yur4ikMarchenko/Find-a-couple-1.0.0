@@ -17,20 +17,20 @@ public class BackgroundCardSpawner : MonoBehaviour
             if(i%2 == 0)
             {
                 t = Instantiate(cardPrefab, canvasRect.transform);
-                t.transform.localPosition = new Vector3(-canvasRect.rect.width * 0.6f, canvasRect.rect.height * 0.45f - cardHeight * i, 20f);
+                t.transform.localPosition = new Vector3(-canvasRect.rect.width * 0.6f, canvasRect.rect.height * 0.4f - cardHeight * i, 30);
                 t.transform.rotation = new Quaternion(0, 180, 0, 0);
                 t.GetComponent<BackgroundCard>().numberOfCardRows = numberOfCardRows;
 
 
                 t = Instantiate(cardPrefab, canvasRect.transform);
-                t.transform.localPosition = new Vector3(-canvasRect.rect.width * 0.6f, canvasRect.rect.height * 0.45f - cardHeight * i, 20f);
+                t.transform.localPosition = new Vector3(-canvasRect.rect.width * 0.6f, canvasRect.rect.height * 0.4f - cardHeight * i, 30);
                 t.transform.rotation = new Quaternion(0, 0, 0, 0);
                 t.GetComponent<BackgroundCard>().numberOfCardRows = numberOfCardRows;
             }
             else
             {
                 t = Instantiate(cardPrefab, canvasRect.transform);
-                t.transform.localPosition = new Vector3(canvasRect.rect.width * 0.6f, canvasRect.rect.height * 0.45f - cardHeight * i, 20f);
+                t.transform.localPosition = new Vector3(canvasRect.rect.width * 0.6f, canvasRect.rect.height * 0.4f - cardHeight * i, 30);
                 t.transform.rotation = new Quaternion(0, 180, 0, 0);
                 card = t.GetComponent<BackgroundCard>();
                 card.numberOfCardRows = numberOfCardRows;
@@ -38,7 +38,7 @@ public class BackgroundCardSpawner : MonoBehaviour
                 card.movingSpeed *= -1;
 
                 t = Instantiate(cardPrefab, canvasRect.transform);
-                t.transform.localPosition = new Vector3(canvasRect.rect.width * 0.6f, canvasRect.rect.height * 0.45f - cardHeight * i, 20f);
+                t.transform.localPosition = new Vector3(canvasRect.rect.width * 0.6f, canvasRect.rect.height * 0.4f - cardHeight * i, 30);
                 t.transform.rotation = new Quaternion(0, 0, 0, 0);
                 card = t.GetComponent<BackgroundCard>();
                 card.numberOfCardRows = numberOfCardRows;

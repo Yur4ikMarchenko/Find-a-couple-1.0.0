@@ -3,8 +3,11 @@ using UnityEngine.UI;
 
 public class Mute : MonoBehaviour
 {
-    public Text on;
-    public Text off;
+    Color active = new  Color(1, 1, 1, 1);
+    Color inActive = new Color(1, 1, 1, 0.7f);
+
+    public Button on;
+    public Button off;
 
     public bool MutedMusic;
 
@@ -15,8 +18,8 @@ public class Mute : MonoBehaviour
 
     void UpdateButtonsVisualState()
     {
-        on.GetComponent<Text>().gameObject.SetActive(!Options.isMusicMuted);
-        off.GetComponent<Text>().gameObject.SetActive(Options.isMusicMuted);
+        on.GetComponent<Image>().color = !Options.isMusicMuted ? active : inActive;
+        off.GetComponent<Image>().color = Options.isMusicMuted ? active : inActive;
     }
 
     public void MuteMusic()

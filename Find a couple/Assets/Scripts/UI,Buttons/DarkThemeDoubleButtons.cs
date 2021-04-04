@@ -8,8 +8,11 @@ public class DarkThemeDoubleButtons : MonoBehaviour
     public bool darkTheme;
     public GameObject fon;
     public GameObject darkFon;
-    public Text on;
-    public Text off;
+    public Button on;
+    public Button off;
+
+    Color active = new Color(1, 1, 1, 1);
+    Color inActive = new Color(1, 1, 1, 0.7f);
 
     private void Start()
     {
@@ -25,10 +28,10 @@ public class DarkThemeDoubleButtons : MonoBehaviour
 
     private void UpdateState()
     {
-        on.gameObject.SetActive(Options.darkTheme);
-        darkFon.gameObject.SetActive(Options.darkTheme);
+        on.GetComponent<Image>().color = Options.darkTheme ? active : inActive;
+        off.GetComponent<Image>().color = !Options.darkTheme ? active : inActive;
 
-        off.gameObject.SetActive(!Options.darkTheme);
+        darkFon.gameObject.SetActive(Options.darkTheme);
         fon.gameObject.SetActive(!Options.darkTheme);
     }
 }
