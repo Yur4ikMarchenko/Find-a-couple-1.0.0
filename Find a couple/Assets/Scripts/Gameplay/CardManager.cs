@@ -143,19 +143,22 @@ public class CardManager : MonoBehaviour
 
     float spawnAnimationLength = 59 / 60f;     //105 frames of 60fps animation
     float unFlipAnimationLength = 45 / 60f;      
-    float initialCardOpeningDuration = 1f;      //for how long cards will be shown at the begining, seconds
+    float initialCardOpeningDuration;      //for how long cards will be shown at the begining, seconds
     float timeFromStart = 0;
     float startGameAfter;
 
     void Start()
     {
-        startGameAfter = spawnAnimationLength + unFlipAnimationLength + initialCardOpeningDuration;
 
         //load level data
         GameObject.FindObjectOfType<AudioSource>().volume= Options.volume;
         numberOfCards = LevelManager.pairs * 2;
         timeLimit = LevelManager.limit;
         triesLimit = LevelManager.tries;
+
+        //get hint duration from level settings or use a simple formula if game mode is set to casual;
+        initialCardOpeningDuration = LevelManager.casual ? Mathf.Sqrt(LevelManager.pairs * 0.7f) : LevelManager.hintDuration;
+        startGameAfter = spawnAnimationLength + unFlipAnimationLength + initialCardOpeningDuration;
 
         gameOver = false;
         victory = false;

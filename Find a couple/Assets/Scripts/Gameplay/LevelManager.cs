@@ -7,35 +7,38 @@ struct Level
     public int numberOfPairs { get; }
     public int timeLimit { get; }
     public int tries { get; }
+    public float hintDuration { get; }
     public bool available { get; set; }
 
-    public Level(int n,int tl,int t)
+    public Level(int n,int tl,int t, float d)
     {
         numberOfPairs = n;
         timeLimit = tl;
         tries = t;
+        hintDuration = d;
         available = false;
     }
 }
 
 public class LevelManager : MonoBehaviour
 {
-    static Level[] levels = new Level[] { new Level(2,10,1),
-                                   new Level(4,15,2),
-                                   new Level(5,20,3),
-                                   new Level(6,25,5),
-                                   new Level(7,30,7),
-                                   new Level(8,35,9),
-                                   new Level(9,40,10),
-                                   new Level(10,45,11),
-                                   new Level(11,55,12),
-                                   new Level(12,65,14)};
+    static Level[] levels = new Level[] { new Level(2,10,1, 1),
+                                   new Level(4,15,2, 1),
+                                   new Level(5,20,3, 1),
+                                   new Level(6,25,5, 1),
+                                   new Level(7,30,7, 1),
+                                   new Level(8,35,9, 1),
+                                   new Level(9,40,10, 1),
+                                   new Level(10,45,11, 1),
+                                   new Level(11,55,12, 1),
+                                   new Level(12,65,14, 1)};
 
     public static int currentLevel { get; private set; }
 
     public static int pairs;
     public static int limit;
     public static int tries;
+    public static float hintDuration;
 
     public static bool casual;
 
@@ -44,6 +47,7 @@ public class LevelManager : MonoBehaviour
         pairs = levels[index].numberOfPairs;
         limit = levels[index].timeLimit;
         tries = levels[index].tries;
+        hintDuration = levels[index].hintDuration;
         currentLevel = index;
     }
 
