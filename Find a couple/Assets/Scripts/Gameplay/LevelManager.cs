@@ -23,15 +23,15 @@ struct Level
 public class LevelManager : MonoBehaviour
 {
     static Level[] levels = new Level[] { new Level(2,10,1, 1),
-                                   new Level(4,15,2, 1),
-                                   new Level(5,20,3, 1),
-                                   new Level(6,25,5, 1),
-                                   new Level(7,30,7, 1),
-                                   new Level(8,35,9, 1),
-                                   new Level(9,40,10, 1),
-                                   new Level(10,45,11, 1),
-                                   new Level(11,55,12, 1),
-                                   new Level(12,65,14, 1)};
+                                   new Level(4,15,2, 1.3f),
+                                   new Level(5,20,3, 1.5f),
+                                   new Level(6,25,5, 2),
+                                   new Level(7,30,7, 2.3f),
+                                   new Level(8,35,9, 2.5f),
+                                   new Level(9,40,10, 2.5f),
+                                   new Level(10,45,11, 3f),
+                                   new Level(11,55,12, 3.2f),
+                                   new Level(12,65,14, 3f)};
 
     public static int currentLevel { get; private set; }
 
