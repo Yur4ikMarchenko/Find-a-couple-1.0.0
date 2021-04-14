@@ -103,6 +103,8 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    bool playerIsVictorious = false;
+
     public GameObject menu;
     public GameObject options;
 
@@ -311,10 +313,15 @@ public class CardManager : MonoBehaviour
 
         if (timeFromStart > startGameAfter && !menu.gameObject.activeSelf && !options.gameObject.activeSelf && !gameOver && !victory)
         {
-            if(!LevelManager.casual && UpdateTimer())
+            if(!LevelManager.casual && !playerIsVictorious && UpdateTimer())
                GameOver();
             if (flippedPairs == numberOfCards / 2)
-               Victory();
+                playerIsVictorious = true;
         }
+
+        //waits for last card to unflip before showing voctory screen
+        if(playerIsVictorious && (unFlipAnimationLength -= Time.deltaTime) <= 0)
+            Victory();
+
     }
 }
